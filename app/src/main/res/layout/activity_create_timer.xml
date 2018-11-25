@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreateTimerActivity">
+
+    <Button
+        android:id="@+id/takePhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onTakePhotoButtonClick"
+        android:text="Take Photo" />
+
+    <Button
+        android:id="@+id/choosePhotoFromGalleryButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onChoosePhotoFromGalleryButtonClick"
+        android:text="Choose From Gallery" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/chooseRingtoneButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onChooseRingtoneButtonClick"
+        android:text="Choose Ringtone" />
+</LinearLayout>
