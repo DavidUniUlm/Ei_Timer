@@ -8,23 +8,16 @@
     tools:context=".CreateTimerActivity">
 
     <Button
-        android:id="@+id/takePhotoButton"
+        android:id="@+id/photoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onTakePhotoButtonClick"
-        android:text="Take Photo" />
-
-    <Button
-        android:id="@+id/choosePhotoFromGalleryButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onChoosePhotoFromGalleryButtonClick"
-        android:text="Choose From Gallery" />
+        android:onClick="onPhotoButtonClick"
+        android:text="Photo" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -33,4 +26,29 @@
         android:layout_height="wrap_content"
         android:onClick="onChooseRingtoneButtonClick"
         android:text="Choose Ringtone" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <NumberPicker
+            android:id="@+id/hour"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        </NumberPicker>
+
+        <NumberPicker
+            android:id="@+id/min"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></NumberPicker>
+
+        <NumberPicker
+            android:id="@+id/sec"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></NumberPicker>
+
+    </LinearLayout>
+
 </LinearLayout>
