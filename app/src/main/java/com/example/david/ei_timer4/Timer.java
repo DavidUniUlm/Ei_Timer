@@ -10,6 +10,7 @@ public class Timer {
     private Bitmap picture;
     private Uri ringtone;
 
+
     public Timer(String name, long time, Bitmap picture, Uri ringtone) {
         this.name = name;
         this.time = time;

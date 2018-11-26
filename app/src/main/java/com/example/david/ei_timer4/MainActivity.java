@@ -1,11 +1,14 @@
 package com.example.david.ei_timer4;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,23 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int REQUEST_CREATE_TIMER = 42;
 
     List<Timer> timerList = new ArrayList<>();
 
-    public void addTimer(Timer timer){
+    public void addTimer(Timer timer) {
         timerList.add(timer);
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -48,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 Intent intent = new Intent(MainActivity.this, CreateTimerActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CREATE_TIMER);
             }
         });
     }
@@ -73,5 +66,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CREATE_TIMER:
+                    String name = data.getExtras().getString("name");
+                    long time = data.getExtras().getLong("time");
+                    //String picture = data.getExtras().getString("picture");
+                    Uri ringtone = (Uri)data.getExtras().get("ringtone");
+
+                    Log.i("name", name);
+                    Log.i("time", ""+time);
+                    //Log.i("picture", picture);
+                    Log.i("ringtoe", ringtone.toString());
+                    break;
+            }
+        }
     }
 }

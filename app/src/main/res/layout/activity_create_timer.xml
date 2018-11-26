@@ -7,18 +7,30 @@
     android:orientation="vertical"
     tools:context=".CreateTimerActivity">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Insert Timer Name"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        tools:layout_marginBottom="10dp"
+        tools:layout_marginTop="10dp" />
+
     <Button
         android:id="@+id/photoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onPhotoButtonClick"
-        android:text="Photo" />
+        android:text="choose photo" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:src="@mipmap/ic_launcher"/>
 
     <Button
         android:id="@+id/chooseRingtoneButton"
@@ -30,14 +42,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="170dp"
         android:gravity="center">
 
         <NumberPicker
             android:id="@+id/hour"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </NumberPicker>
+            android:layout_height="match_parent"></NumberPicker>
 
         <NumberPicker
             android:id="@+id/min"
@@ -49,6 +60,30 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"></NumberPicker>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/abordButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffcccc"
+            android:onClick="onAbortButtonClick"
+            android:text="abort" />
+
+        <Button
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ddffdd"
+            android:onClick="onDoneButtonClick"
+            android:text="Done!" />
     </LinearLayout>
 
 </LinearLayout>
