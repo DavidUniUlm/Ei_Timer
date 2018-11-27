@@ -75,12 +75,12 @@ public class MainActivity extends AppCompatActivity {
                 case REQUEST_CREATE_TIMER:
                     String name = data.getExtras().getString("name");
                     long time = data.getExtras().getLong("time");
-                    //String picture = data.getExtras().getString("picture");
+                    Uri picture = (Uri)data.getExtras().get("picture");
                     Uri ringtone = (Uri)data.getExtras().get("ringtone");
 
                     Log.i("name", name);
                     Log.i("time", ""+time);
-                    //Log.i("picture", picture);
+                    Log.i("picture", String.valueOf(picture));
                     Log.i("ringtoe", ringtone.toString());
                     break;
             }

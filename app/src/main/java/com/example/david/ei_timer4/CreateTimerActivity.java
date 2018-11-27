@@ -1,20 +1,19 @@
 package com.example.david.ei_timer4;
 
+
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +28,7 @@ public class CreateTimerActivity extends AppCompatActivity {
 
     private static final int PICK_PHOTO = 0;
     private static final int PICK_RINGTONE = 1;
+    private static final int REQUEST_TAKE_PHOTO = 7;
 
     EditText editText;
     ImageView imageView;
@@ -61,8 +61,6 @@ public class CreateTimerActivity extends AppCompatActivity {
         return image;
     }
 
-    static final int REQUEST_TAKE_PHOTO = 7;
-
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -76,7 +74,7 @@ public class CreateTimerActivity extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
+                Uri photoURI = FileProvider.getUriForFile(CreateTimerActivity.this,
                         "com.example.david.ei_timer4.fileprovider",
                         photoFile);
                 System.out.println("photoUri\n" + photoURI);
@@ -92,9 +90,8 @@ public class CreateTimerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_timer);
-        //takePhotoButton = (Button)findViewById(R.id.takePhotoButton);
         editText = findViewById(R.id.editText);
-        imageView = (ImageView) findViewById(R.id.imageView);
+        imageView = findViewById(R.id.imageView);
         initializeNumberPicker();
     }
 
@@ -114,22 +111,21 @@ public class CreateTimerActivity extends AppCompatActivity {
     }
 
     public void onPhotoButtonClick(View view) {
-        dispatchTakePictureIntent();
-////        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-////        startActivityForResult(intent, PICK_FROM_CAMERA);
-//
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    // Camera
-//        Intent intent2 = new Intent(Intent.ACTION_PICK);                // Gallery
-//        intent2.setType("image/*");
-//        intent2.setData(MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-//        intent2.putExtra("return-data", true);
-//
-//        Intent intent3 = Intent.createChooser(intent, "Choose Picture");
-//        intent3.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{
-//                intent2
-//        });
-//
-//        startActivityForResult(intent3, PICK_PHOTO);
+
+//        dispatchTakePictureIntent();
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    // Camera
+        Intent intent2 = new Intent(Intent.ACTION_PICK);                // Gallery
+        intent2.setType("image/*");
+        intent2.setData(MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        intent2.putExtra("return-data", true);
+
+        Intent intent3 = Intent.createChooser(intent, "Choose Picture");
+        intent3.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{
+                intent2
+        });
+
+        startActivityForResult(intent3, PICK_PHOTO);
     }
 
     public void onChooseRingtoneButtonClick(View view) {
@@ -178,16 +174,19 @@ public class CreateTimerActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case REQUEST_TAKE_PHOTO:
-                    Uri imageFromCamera = data.getData();
-                    System.out.println(data.getData());
-                    if (imageFromCamera != null) {                                 // Gallery
-                        imageView.setImageURI(imageFromCamera);
+                    Uri imageURI = data.getData();
+                    //System.out.println(data.getData());
+                    if (imageURI != null) {                                 // Gallery
+                        picture = imageURI;
+                        imageView.setImageURI(imageURI);
                     }
                     break;
                 case PICK_PHOTO:
                     Uri imageFromGallery = data.getData();
                     if (imageFromGallery != null) {                                 // Gallery
                         imageView.setImageURI(imageFromGallery);
+                        picture = imageFromGallery;
+
                     } else {                                                        // Cam
                         Bitmap picFromCam = (Bitmap) data.getExtras().get("data");
                         imageView.setImageBitmap(picFromCam);
