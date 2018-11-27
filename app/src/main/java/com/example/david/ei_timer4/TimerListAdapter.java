@@ -30,9 +30,10 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String name = getItem(position).getName();
+        final String name = getItem(position).getName();
         long time = getItem(position).getTime();
-        Uri picture = getItem(position).getPicture();
+        final Uri picture = getItem(position).getPicture();
+        final Uri ringtone = getItem(position).getRingtone();
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -57,6 +58,9 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
             public void onFinish() {
                 System.out.println("onFinish");
                 Intent intent = new Intent(mContext, TimerFinished.class);
+                intent.putExtra("name", name);
+                intent.putExtra("picture", picture);
+                intent.putExtra("ringtone",ringtone);
                 mContext.startActivity(intent);
             }
         }.start();

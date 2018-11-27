@@ -4,14 +4,12 @@ package com.example.david.ei_timer4;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CreateTimerActivity extends AppCompatActivity {
-    private static final int PICK_PHOTO = 0;
 
     private static final int PICK_RINGTONE = 1;
     private static final int REQUEST_TAKE_PHOTO = 2;
@@ -97,8 +94,10 @@ public class CreateTimerActivity extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             }
         }
-        return(takePictureIntent);
-    };
+        return (takePictureIntent);
+    }
+
+    ;
 
     public void onPhotoButtonClick(View view) {
         Intent intent = dispatchTakePictureIntent();
@@ -174,9 +173,6 @@ public class CreateTimerActivity extends AppCompatActivity {
                     if (uri != null) {
                         ringtone = uri;
                     }
-//                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-//                r.play();
                     break;
             }
         }

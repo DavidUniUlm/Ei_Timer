@@ -7,17 +7,18 @@
     tools:context=".TimerFinished">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/timerName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        tools:id="timerName"
         tools:layout_editor_absoluteY="31dp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/finishedImageView"
         android:layout_width="269dp"
         android:layout_height="320dp"
         android:layout_marginTop="8dp"
@@ -25,7 +26,7 @@
         app:layout_constraintBottom_toTopOf="@+id/okButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/timerName2"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
