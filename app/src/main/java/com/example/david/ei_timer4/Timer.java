@@ -2,6 +2,7 @@ package com.example.david.ei_timer4;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.CountDownTimer;
 
 public class Timer {
 
@@ -17,6 +18,33 @@ public class Timer {
         this.picture = picture;
         this.ringtone = ringtone;
     }
+
+
+    CountDownTimer timer = new CountDownTimer(30000, 1000) {
+        public void onTick(long millisUntilFinished) {
+            System.out.println("blob");
+        }
+
+        public void onFinish() {
+        }
+    };
+
+    public void startTimer() {
+        timer.start();
+    }
+
+    public void stopTimer() {
+        timer.cancel();
+    }
+
+//    public void stop_start_Timer() {
+//        if(timer.)
+//    }
+//
+//    private void timerResume() {
+//        timerStart(milliLeft);
+//    }
+
 
     public String getName() {
         return name;

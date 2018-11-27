@@ -49,7 +49,7 @@ public class CreateTimerActivity extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -61,7 +61,7 @@ public class CreateTimerActivity extends AppCompatActivity {
         return image;
     }
 
-    private void dispatchTakePictureIntent() {
+    private Intent dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -74,16 +74,13 @@ public class CreateTimerActivity extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(CreateTimerActivity.this,
-                        "com.example.david.ei_timer4.fileprovider",
-                        photoFile);
-                System.out.println("photoUri\n" + photoURI);
-                imageView.setImageURI(photoURI);
+                Uri photoURI = Uri.fromFile(photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+//                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-    }
+        return(takePictureIntent);
+    };
 
 
     @Override
@@ -112,20 +109,20 @@ public class CreateTimerActivity extends AppCompatActivity {
 
     public void onPhotoButtonClick(View view) {
 
-//        dispatchTakePictureIntent();
+        Intent intent = dispatchTakePictureIntent();
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    // Camera
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    // Camera
         Intent intent2 = new Intent(Intent.ACTION_PICK);                // Gallery
         intent2.setType("image/*");
         intent2.setData(MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         intent2.putExtra("return-data", true);
 
-        Intent intent3 = Intent.createChooser(intent, "Choose Picture");
+        Intent intent3 = Intent.createChooser(intent2, "Choose Picture");
         intent3.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{
-                intent2
+                intent
         });
 
-        startActivityForResult(intent3, PICK_PHOTO);
+        startActivityForResult(intent3, REQUEST_TAKE_PHOTO);
     }
 
     public void onChooseRingtoneButtonClick(View view) {
@@ -179,6 +176,10 @@ public class CreateTimerActivity extends AppCompatActivity {
                     if (imageURI != null) {                                 // Gallery
                         picture = imageURI;
                         imageView.setImageURI(imageURI);
+                    } else {
+                        imageURI = Uri.parse(mCurrentPhotoPath);
+                        imageView.setImageURI(imageURI);
+                        picture = imageURI;
                     }
                     break;
                 case PICK_PHOTO:
