@@ -19,12 +19,10 @@ public class Timer {
         this.ringtone = ringtone;
     }
 
-
     CountDownTimer timer = new CountDownTimer(30000, 1000) {
         public void onTick(long millisUntilFinished) {
             System.out.println("blob");
         }
-
         public void onFinish() {
         }
     };
@@ -36,15 +34,6 @@ public class Timer {
     public void stopTimer() {
         timer.cancel();
     }
-
-//    public void stop_start_Timer() {
-//        if(timer.)
-//    }
-//
-//    private void timerResume() {
-//        timerStart(milliLeft);
-//    }
-
 
     public String getName() {
         return name;

@@ -23,7 +23,6 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
         mResource = resource;
     }
 
-
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
