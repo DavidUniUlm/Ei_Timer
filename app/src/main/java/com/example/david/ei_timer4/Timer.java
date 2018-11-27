@@ -7,11 +7,11 @@ public class Timer {
 
     private String name;
     private long time;
-    private Bitmap picture;
+    private Uri picture;
     private Uri ringtone;
 
 
-    public Timer(String name, long time, Bitmap picture, Uri ringtone) {
+    public Timer(String name, long time, Uri picture, Uri ringtone) {
         this.name = name;
         this.time = time;
         this.picture = picture;
@@ -34,11 +34,11 @@ public class Timer {
         this.time = time;
     }
 
-    public Bitmap getPicture() {
+    public Uri getPicture() {
         return picture;
     }
 
-    public void setPicture(Bitmap picture) {
+    public void setPicture(Uri picture) {
         this.picture = picture;
     }
 

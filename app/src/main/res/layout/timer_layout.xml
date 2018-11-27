@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageViewTimerLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="1"
@@ -19,7 +19,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/name"
+            android:id="@+id/nameTimerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/countdownTimerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

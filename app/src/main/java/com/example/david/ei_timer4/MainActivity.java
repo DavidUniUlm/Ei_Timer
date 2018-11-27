@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CREATE_TIMER = 42;
 
-    List<Timer> timerList = new ArrayList<>();
+    ListView listView;
+    ArrayList<Timer> timerList = new ArrayList<>();
+    TimerListAdapter tla;
 
-    public void addTimer(Timer timer) {
-        timerList.add(timer);
-    }
+//    public void addTimer(Timer timer) {
+//        timerList.add(timer);
+//    }
 
 
     @Override
@@ -44,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CREATE_TIMER);
             }
         });
+
+        listView = findViewById(R.id.listView);
+        tla = new TimerListAdapter(this, R.layout.timer_layout, timerList);
+        listView.setAdapter(tla);
     }
 
     @Override
@@ -82,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("time", ""+time);
                     Log.i("picture", String.valueOf(picture));
                     Log.i("ringtoe", ringtone.toString());
+
+                    timerList.add(new Timer(name, time, picture, ringtone));
+//                    tla.add(new Timer(name, time, picture, ringtone));
+
+                    tla.notifyDataSetChanged();
+                    //listView.invalidateViews();
+
                     break;
             }
         }
