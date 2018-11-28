@@ -44,7 +44,7 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
 
         iv.setImageURI(picture);
         nameTv.setText(name);
-        countdownTv.setText("" + time);
+        countdownTv.setText(millisToString(time));
 
 //        startCountdownTimer(time, 1000);
 
