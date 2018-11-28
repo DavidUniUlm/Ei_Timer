@@ -7,37 +7,57 @@
     tools:context=".TimerFinished">
 
     <TextView
-        android:id="@+id/timerName2"
+        android:id="@+id/timerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:id="timerName"
-        tools:layout_editor_absoluteY="31dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/finishedImageView"
-        android:layout_width="269dp"
-        android:layout_height="320dp"
+        android:layout_width="300dp"
+        android:layout_height="351dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/closeTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timerName"
+        app:layout_constraintVertical_bias="0.742" />
+
+    <TextView
+        android:id="@+id/closeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/okButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerName2"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/finishedImageView" />
 
     <Button
         android:id="@+id/okButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="61dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="#ddffdd"
         android:onClick="onOkButtonClick"
-        android:text="OK"
+        android:text="close"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closeTextView"
+        app:layout_constraintVertical_bias="0.484" />
+
+
 </android.support.constraint.ConstraintLayout>

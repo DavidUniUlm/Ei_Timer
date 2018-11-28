@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static android.support.v4.content.ContextCompat.startActivity;
-
 public class TimerListAdapter extends ArrayAdapter<Timer> {
 
     private Context mContext;
@@ -48,10 +46,10 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
         countdownTv.setText("" + time);
 
 
-        CountDownTimer countDownTimer = new CountDownTimer(time*1000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                countdownTv.setText("" + millisUntilFinished);
+                countdownTv.setText(millisToString(millisUntilFinished));
             }
 
             @Override
@@ -60,12 +58,34 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
                 Intent intent = new Intent(mContext, TimerFinished.class);
                 intent.putExtra("name", name);
                 intent.putExtra("picture", picture);
-                intent.putExtra("ringtone",ringtone);
+                intent.putExtra("ringtone", ringtone);
                 mContext.startActivity(intent);
             }
         }.start();
 
-
         return convertView;
+    }
+
+    private String millisToString(long millis) {
+        int hour = (int) millis / 1000 / 3600;
+        int min = (int) (millis / 1000 % 3600) / 60;
+        int sec = (int) millis / 1000 % 3600 % 60;
+
+        String timeLeft = "";
+
+        if (hour < 10) {
+            timeLeft += "0";
+        }
+        timeLeft += hour + ":";
+        if (min < 10) {
+            timeLeft += "0";
+        }
+        timeLeft += min + ":";
+
+        if (sec < 10) {
+            timeLeft += "0";
+        }
+        timeLeft += sec;
+        return timeLeft;
     }
 }
