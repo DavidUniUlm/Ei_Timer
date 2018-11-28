@@ -44,7 +44,7 @@ public class TimerFinished extends AppCompatActivity {
         countdown = new CountDownTimer(10000, 1) {
             @Override
             public void onTick(long millisUntilFinished) {
-                closeTextView.setText("closed in 0" + millisUntilFinished / 1000 + " seconds");
+                closeTextView.setText("closes in 0" + millisUntilFinished / 1000 + " seconds");
             }
             @Override
             public void onFinish() {
