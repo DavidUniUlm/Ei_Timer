@@ -27,11 +27,13 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+
         final String name = getItem(position).getName();
         long time = getItem(position).getTime();
         final Uri picture = getItem(position).getPicture();
         final Uri ringtone = getItem(position).getRingtone();
+        final boolean isRunning = getItem(position).isRunning();
 
         final LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
@@ -40,30 +42,53 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
         TextView nameTv = convertView.findViewById(R.id.nameTimerLayout);
         final TextView countdownTv = convertView.findViewById(R.id.countdownTimerLayout);
 
-        System.out.println("Uri crash\n" + picture);
         iv.setImageURI(picture);
         nameTv.setText(name);
         countdownTv.setText("" + time);
 
+//        startCountdownTimer(time, 1000);
 
-        CountDownTimer countDownTimer = new CountDownTimer(time * 1000, 1000) {
+        final CountDownTimer countDownTimer = new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 countdownTv.setText(millisToString(millisUntilFinished));
+                getItem(position).setTime(millisUntilFinished);
             }
 
             @Override
             public void onFinish() {
-                System.out.println("onFinish");
+                getItem(position).setTime(0);
+                getItem(position).setRunning(false);
                 Intent intent = new Intent(mContext, TimerFinished.class);
                 intent.putExtra("name", name);
                 intent.putExtra("picture", picture);
                 intent.putExtra("ringtone", ringtone);
                 mContext.startActivity(intent);
             }
-        }.start();
+        };
 
+        if (time != 0 && isRunning) {
+            countDownTimer.start();
+        }
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getItem(position).getTime() != 0) {
+                    if(isRunning){
+                        countDownTimer.cancel();
+                    }
+                    else{
+                        countDownTimer.start();
+                    }
+                    getItem(position).setRunning(!isRunning);
+                }
+            }
+        });
         return convertView;
+    }
+
+    private void startCountdownTimer(long time, int i) {
     }
 
     private String millisToString(long millis) {

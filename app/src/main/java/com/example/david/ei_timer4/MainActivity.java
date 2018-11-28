@@ -76,8 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
                     timerList.add(new Timer(name, time, picture, ringtone));
                     tla.notifyDataSetChanged();
+                    //tla.add(timerList.get(timerList.size()-1));
                     break;
             }
         }
+    }
+
+    public void dataChanged(){
+        tla.notifyDataSetChanged();
     }
 }

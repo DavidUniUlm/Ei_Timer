@@ -10,6 +10,7 @@ public class Timer {
     private long time;
     private Uri picture;
     private Uri ringtone;
+    private boolean isRunning = true;
 
 
     public Timer(String name, long time, Uri picture, Uri ringtone) {
@@ -19,20 +20,29 @@ public class Timer {
         this.ringtone = ringtone;
     }
 
-    CountDownTimer timer = new CountDownTimer(30000, 1000) {
-        public void onTick(long millisUntilFinished) {
-            System.out.println("blob");
-        }
-        public void onFinish() {
-        }
-    };
+//    CountDownTimer timer = new CountDownTimer(30000, 1000) {
+//        public void onTick(long millisUntilFinished) {
+//            System.out.println("blob");
+//        }
+//        public void onFinish() {
+//        }
+//    };
+//
+//    public void startTimer() {
+//        timer.start();
+//    }
+//
+//    public void stopTimer() {
+//        timer.cancel();
+//    }
 
-    public void startTimer() {
-        timer.start();
+
+    public boolean isRunning() {
+        return isRunning;
     }
 
-    public void stopTimer() {
-        timer.cancel();
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 
     public String getName() {

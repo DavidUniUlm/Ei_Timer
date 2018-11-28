@@ -118,8 +118,8 @@ public class CreateTimerActivity extends AppCompatActivity {
     }
 
     public void onDoneButtonClick(View view) {
-        time = numberPicker_Hour.getValue() * 3600 + numberPicker_Min.getValue() * 60
-                + numberPicker_Sec.getValue();
+        time = (numberPicker_Hour.getValue() * 3600 + numberPicker_Min.getValue() * 60
+                + numberPicker_Sec.getValue())*1000; // time in milliseconds
         if (time == 0) {
             AlertDialog alertDialog = new AlertDialog.Builder(CreateTimerActivity.this).create();
             alertDialog.setTitle("Notification");
