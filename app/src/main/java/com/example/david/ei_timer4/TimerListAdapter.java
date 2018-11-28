@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TimerListAdapter extends ArrayAdapter<Timer> {
 
     private Context mContext;
     int mResource;
+    //private Sparse s = new SparseArray<>()
+    HashMap<Integer, View> hashMap = new HashMap<>();
+
 
     public TimerListAdapter(Context context, int resource, ArrayList<Timer> objects) {
         super(context, resource, objects);
@@ -45,8 +50,6 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
         iv.setImageURI(picture);
         nameTv.setText(name);
         countdownTv.setText(millisToString(time));
-
-//        startCountdownTimer(time, 1000);
 
         final CountDownTimer countDownTimer = new CountDownTimer(time, 1000) {
             @Override
@@ -85,10 +88,9 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
                 }
             }
         });
-        return convertView;
-    }
 
-    private void startCountdownTimer(long time, int i) {
+        hashMap.put(position, convertView);
+        return convertView;
     }
 
     private String millisToString(long millis) {
