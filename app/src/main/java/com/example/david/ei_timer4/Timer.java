@@ -10,7 +10,7 @@ public class Timer {
     private long time;
     private Uri picture;
     private Uri ringtone;
-    private boolean isRunning = true;
+    private boolean isRunning = false;
 
 
     public Timer(String name, long time, Uri picture, Uri ringtone) {

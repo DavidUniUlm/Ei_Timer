@@ -3,8 +3,10 @@ package com.example.david.ei_timer4;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +23,7 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
     private Context mContext;
     int mResource;
     //private Sparse s = new SparseArray<>()
-    HashMap<Integer, View> hashMap = new HashMap<>();
+    HashMap<View, CountDownTimer> hashMap = new HashMap<>();
 
 
     public TimerListAdapter(Context context, int resource, ArrayList<Timer> objects) {
@@ -51,45 +53,65 @@ public class TimerListAdapter extends ArrayAdapter<Timer> {
         nameTv.setText(name);
         countdownTv.setText(millisToString(time));
 
-        final CountDownTimer countDownTimer = new CountDownTimer(time, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                countdownTv.setText(millisToString(millisUntilFinished));
-                getItem(position).setTime(millisUntilFinished);
-            }
+//        CountDownTimer countDownTimer = new CountDownTimer(time, 1000) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//                countdownTv.setText(millisToString(millisUntilFinished));
+//                getItem(position).setTime(millisUntilFinished);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                getItem(position).setTime(0);
+//                getItem(position).setRunning(false);
+//                Intent intent = new Intent(mContext, TimerFinished.class);
+//                intent.putExtra("name", name);
+//                intent.putExtra("picture", picture);
+//                intent.putExtra("ringtone", ringtone);
+//                mContext.startActivity(intent);
+//            }
+//        };
 
-            @Override
-            public void onFinish() {
-                getItem(position).setTime(0);
-                getItem(position).setRunning(false);
-                Intent intent = new Intent(mContext, TimerFinished.class);
-                intent.putExtra("name", name);
-                intent.putExtra("picture", picture);
-                intent.putExtra("ringtone", ringtone);
-                mContext.startActivity(intent);
-            }
-        };
+//        if (time != 0 && isRunning) {
+//            countDownTimer.start();
+//        }
 
-        if (time != 0 && isRunning) {
-            countDownTimer.start();
-        }
+        hashMap.put(convertView, null);
 
         convertView.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                if (getItem(position).getTime() != 0) {
-                    if(isRunning){
-                        countDownTimer.cancel();
+//                if (getItem(position).getTime() != 0) {
+                    if(getItem(position).isRunning()){
+                        hashMap.get(v).cancel();
                     }
                     else{
-                        countDownTimer.start();
-                    }
-                    getItem(position).setRunning(!isRunning);
+                        //getItem(position).setRunning(true);
+                        hashMap.replace(v, new CountDownTimer(getItem(position).getTime(), 1000) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                countdownTv.setText(millisToString(millisUntilFinished));
+                                getItem(position).setTime(millisUntilFinished);
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                getItem(position).setTime(0);
+                                getItem(position).setRunning(false);
+                                Intent intent = new Intent(mContext, TimerFinished.class);
+                                intent.putExtra("name", name);
+                                intent.putExtra("picture", picture);
+                                intent.putExtra("ringtone", ringtone);
+                                mContext.startActivity(intent);
+                            }
+                        }.start());
+
                 }
+                getItem(position).setRunning(!(getItem(position).isRunning()));
             }
         });
 
-        hashMap.put(position, convertView);
         return convertView;
     }
 
